@@ -1,4 +1,4 @@
-![Build Status](http://ci.inventivetalent.org/job/SpigetResourceUpdater/badge/icon)
+[![Build Status](http://ci.inventivetalent.org/job/SpigetUpdater/badge/icon)](https://ci.inventivetalent.org/job/SpigetUpdater/)
 
 
 Spigot & Bungeecord updater API which uses [spiget.org](https://spiget.org) to check for new versions
