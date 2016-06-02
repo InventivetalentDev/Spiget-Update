@@ -4,6 +4,9 @@
 Spigot & Bungeecord updater API which uses [spiget.org](https://spiget.org) to check for new versions
 
 ## Usage
+
+### Check for new versions
+
 ```Java
 SpigetUpdate updater = new SpigetUpdate(this, 12345);
 
@@ -29,3 +32,30 @@ updater.checkForUpdate(new UpdateCallback() {
 	}
 });
 ```
+
+
+### Download updates (Bukkit/Spigot)
+```Java
+final SpigetUpdate updater = new SpigetUpdate(this, 12345);
+updater.checkForUpdate(new UpdateCallback() {
+	@Override
+	public void updateAvailable(String newVersion, String downloadUrl, boolean hasDirectDownload) {
+		// First check if there is a direct download available
+		// (Either the resources is hosted on spigotmc.org, or Spiget has a cached version to download)
+		// external downloads won't work if they are disabled (by default) in spiget.properties
+		if (hasDirectDownload) {
+			if (updater.downloadUpdate()) {
+				// Update downloaded, will be loaded when the server restarts
+			} else {
+				// Update failed
+				getLogger().warning("Update download failed, reason is " + updater.getFailReason());
+			}
+		}
+	}
+
+	@Override
+	public void upToDate() {
+	}
+});
+```
+
