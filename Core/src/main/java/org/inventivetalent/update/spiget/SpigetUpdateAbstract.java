@@ -91,7 +91,7 @@ public abstract class SpigetUpdateAbstract {
 					JsonObject jsonObject = new JsonParser().parse(new InputStreamReader(connection.getInputStream())).getAsJsonObject();
 					latestResourceInfo = new Gson().fromJson(jsonObject, ResourceInfo.class);
 					if (isVersionNewer(currentVersion, latestResourceInfo.version)) {
-						callback.updateAvailable(latestResourceInfo.version, latestResourceInfo.download, (!latestResourceInfo.external || latestResourceInfo.hasMeta));
+						callback.updateAvailable(latestResourceInfo.version, latestResourceInfo.download, (!latestResourceInfo.external || latestResourceInfo.isCached));
 					} else {
 						callback.upToDate();
 					}
