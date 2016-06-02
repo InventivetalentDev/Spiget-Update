@@ -36,7 +36,11 @@ import org.inventivetalent.update.spiget.download.DownloadCallback;
 import org.inventivetalent.update.spiget.download.UpdateDownloader;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Properties;
 import java.util.logging.Level;
 
 public class SpigetUpdate extends SpigetUpdateAbstract {
@@ -95,6 +99,14 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 		}
 		final File updateFile = new File(updateFolder, pluginFile.getName());
 
+		Properties properties = getUpdaterProperties();
+		boolean allowExternalDownload = properties != null && properties.containsKey("externalDownloads") && Boolean.valueOf(properties.getProperty("externalDownloads"));
+
+		if (!allowExternalDownload && latestResourceInfo.external) {
+			failReason = DownloadFailReason.EXTERNAL_DISALLOWED;
+			return false;
+		}
+
 		log.info("[SpigetUpdate] Downloading update...");
 		dispatch(UpdateDownloader.downloadAsync(latestResourceInfo, updateFile, getUserAgent(), new DownloadCallback() {
 			@Override
@@ -113,6 +125,28 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 
 	public DownloadFailReason getFailReason() {
 		return failReason;
+	}
+
+	public Properties getUpdaterProperties() {
+		File file = new File(Bukkit.getUpdateFolderFile(), "spiget.properties");
+		Properties properties = new Properties();
+		if (!file.exists()) {
+			try {
+				if (!file.createNewFile()) { return null; }
+				properties.setProperty("externalDownloads", "false");
+				properties.store(new FileWriter(file), "Configuration for the Spiget auto-updater. https://spiget.org | https://github.com/InventivetalentDev/SpigetUpdater\n"
+						+ "Use 'externalDownloads' if you want to auto-download resources hosted on external sites\n"
+						+ "");
+			} catch (Exception ignored) {
+				return null;
+			}
+		}
+		try {
+			properties.load(new FileReader(file));
+		} catch (IOException e) {
+			return null;
+		}
+		return properties;
 	}
 
 	/**
@@ -137,6 +171,7 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 		NO_DOWNLOAD,
 		NO_PLUGIN_FILE,
 		NO_UPDATE_FOLDER,
+		EXTERNAL_DISALLOWED,
 		UNKNOWN;
 	}
 
