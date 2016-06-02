@@ -30,11 +30,19 @@ package org.inventivetalent.update.spiget;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.inventivetalent.update.spiget.comparator.VersionComparator;
+import org.inventivetalent.update.spiget.download.DownloadCallback;
+import org.inventivetalent.update.spiget.download.UpdateDownloader;
+
+import java.io.File;
+import java.lang.reflect.Method;
+import java.util.logging.Level;
 
 public class SpigetUpdate extends SpigetUpdateAbstract {
 
 	protected final Plugin plugin;
+	protected DownloadFailReason failReason = DownloadFailReason.UNKNOWN;
 
 	public SpigetUpdate(Plugin plugin, int resourceId) {
 		super(resourceId, plugin.getDescription().getVersion(), plugin.getLogger());
@@ -58,4 +66,78 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 	protected void dispatch(Runnable runnable) {
 		Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable);
 	}
+
+	public boolean downloadUpdate() {
+		if (latestResourceInfo == null) {
+			failReason = DownloadFailReason.NOT_CHECKED;
+			return false;// Update not yet checked
+		}
+		if (!isVersionNewer(currentVersion, latestResourceInfo.version)) {
+			failReason = DownloadFailReason.NO_UPDATE;
+			return false;// Version is no update
+		}
+		if (latestResourceInfo.external && !latestResourceInfo.isCached) {
+			failReason = DownloadFailReason.NO_DOWNLOAD;
+			return false;// No download available
+		}
+
+		File pluginFile = getPluginFile();// /plugins/XXX.jar
+		if (pluginFile == null) {
+			failReason = DownloadFailReason.NO_PLUGIN_FILE;
+			return false;
+		}
+		File updateFolder = Bukkit.getUpdateFolderFile();
+		if (!updateFolder.exists()) {
+			if (!updateFolder.mkdirs()) {
+				failReason = DownloadFailReason.NO_UPDATE_FOLDER;
+				return false;
+			}
+		}
+		final File updateFile = new File(updateFolder, pluginFile.getName());
+
+		log.info("[SpigetUpdate] Downloading update...");
+		dispatch(UpdateDownloader.downloadAsync(latestResourceInfo, updateFile, getUserAgent(), new DownloadCallback() {
+			@Override
+			public void finished() {
+				log.info("[SpigetUpdate] Update saved as " + updateFile.getPath());
+			}
+
+			@Override
+			public void error(Exception exception) {
+				log.log(Level.WARNING, "[SpigetUpdate] Could not download update", exception);
+			}
+		}));
+
+		return true;
+	}
+
+	public DownloadFailReason getFailReason() {
+		return failReason;
+	}
+
+	/**
+	 * Get the plugin's file name
+	 *
+	 * @return the plugin file name
+	 */
+	private File getPluginFile() {
+		if (!(this.plugin instanceof JavaPlugin)) { return null; }
+		try {
+			Method method = JavaPlugin.class.getDeclaredMethod("getFile");
+			method.setAccessible(true);
+			return (File) method.invoke(this.plugin);
+		} catch (ReflectiveOperationException e) {
+			throw new RuntimeException("Could not get plugin file", e);
+		}
+	}
+
+	public enum DownloadFailReason {
+		NOT_CHECKED,
+		NO_UPDATE,
+		NO_DOWNLOAD,
+		NO_PLUGIN_FILE,
+		NO_UPDATE_FOLDER,
+		UNKNOWN;
+	}
+
 }
