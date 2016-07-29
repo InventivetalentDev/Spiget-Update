@@ -76,11 +76,11 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 			failReason = DownloadFailReason.NOT_CHECKED;
 			return false;// Update not yet checked
 		}
-		if (!isVersionNewer(currentVersion, latestResourceInfo.version)) {
+		if (!isVersionNewer(currentVersion, latestResourceInfo.latestVersion.name)) {
 			failReason = DownloadFailReason.NO_UPDATE;
 			return false;// Version is no update
 		}
-		if (latestResourceInfo.external && !latestResourceInfo.isCached) {
+		if (latestResourceInfo.external) {
 			failReason = DownloadFailReason.NO_DOWNLOAD;
 			return false;// No download available
 		}

@@ -30,15 +30,10 @@ package org.inventivetalent.update.spiget;
 
 public class ResourceInfo {
 
-	public int     id;
-	public String  name;
-	public String  tag;
-	public String  lastUpdate;
-	public String  download;
-	public String  version;
-	public boolean external;
-	public boolean hasMeta;
-	public boolean isCached;
-	public String  link;
+	public int          id;
+	public boolean      external;
+	public ResourceFile file;
+
+	public ResourceVersion latestVersion;
 
 }

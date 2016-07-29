@@ -40,7 +40,7 @@ import java.nio.channels.ReadableByteChannel;
 
 public class UpdateDownloader {
 
-	public static final String RESOURCE_DOWNLOAD = "http://api.spiget.org/v1/resources/%s/download";
+	public static final String RESOURCE_DOWNLOAD = "http://api.spiget.org/v2/resources/%s/download";
 
 	public static Runnable downloadAsync(final ResourceInfo info, final File file, final String userAgent, final DownloadCallback callback) {
 		return new Runnable() {
@@ -61,8 +61,7 @@ public class UpdateDownloader {
 	}
 
 	public static void download(ResourceInfo info, File file, String userAgent) {
-		if (info.external && !info.hasMeta) { throw new IllegalArgumentException("Cannot download external resource #" + info.id); }
-		if (!info.isCached) { throw new IllegalArgumentException("No cached file available for #" + info.id); }
+		if (info.external) { throw new IllegalArgumentException("Cannot download external resource #" + info.id); }
 		ReadableByteChannel channel;
 		try {
 			//https://stackoverflow.com/questions/921262/how-to-download-and-save-a-file-from-internet-using-java
