@@ -59,3 +59,19 @@ updater.checkForUpdate(new UpdateCallback() {
 });
 ```
 
+## Maven
+```xml
+<repositories>
+    <repository>
+        <id>inventive-repo</id>
+        <url>https://repo.inventivetalent.org/content/groups/public/</url>
+    </repository>
+</repositories>
+<dependencies>
+    <dependency>
+        <groupId>org.inventivetalent.spiget-update</groupId>
+        <artifactId>bukkit|bungee</artifactId>
+        <version>VERSION</version>
+    </dependency>
+</dependencies>
+```
