@@ -16,8 +16,8 @@ deploy:
     secure: "M0ifOSZjy77cI7/gzK8eZlkRm0JXJekEjc8VHg/TEC4XtC0xNPaIuBG10nbWSgW0N++kqJ8JRZwHGokjktkyKCkewWpLyzUF0Q//bd0E59UxuF0y5MljWVFick8f7OiEkfDkbo3cpMusakjRHnByU7bAR2yuAMeCGFKHjX+y9SGyEVdG2uj1x3IERP4m/2XR5D1LlFDXDYyoGKTNT7gyfxJIyob5JR9Jh9m6LTh04QQJy8rP6f6Mq9VNA3QoBi6on6Hu3tYFrpF3l3zWKux4P4EQqgl8wy7gaNrsFVReETnd+SVwdTfjtzdoegK0F9mZKTJFpTZkrc8qhHoXFdwJEymLK2FLZc0HgOcNLSuOLdRKgoczUjNu4U50/fJMZLrjEQEQw4wCWsALj4fMWaDFKwd2hRE+Hhv7cfaza5TqSiYKwTM2IH01UFIi95pJe2MRxE1Q+Uhb77a+E1KrE4SGulqDqZ/qQcCzYGNjMQRpVLWyEbwML08VZxUFK6eUaCD6Ayd1ybx2SX5Lu/3biFm+e4pk/qLV750jW49OHBI/Ubvh2dmCQzFWsP5ck7bw+dGInYw2EFkiZOYL6q3Ddsx0IGd2llWws4zQwKcIycIHyd4rPulVsV03eZwPkSY6659xxgLFQQ5XZkGcAje+ePNyp8GJt4PxUZte/GfkgCnZB04="
   file_glob: true
   file: 
-    - "${BUKKIT_RELEASE_FILE}"
-    - "${BUNGEE_RELEASE_FILE}"
+    - "Bukkit/target/bukkit-*.jar"
+    - "Bungee/target/bungee-*.jar"
   skip_cleanup: true
   on:
     tags: true
