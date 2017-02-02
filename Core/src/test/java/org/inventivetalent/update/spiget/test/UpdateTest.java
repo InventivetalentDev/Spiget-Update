@@ -24,7 +24,7 @@ public class UpdateTest {
 			public void updateAvailable(String newVersion, String downloadUrl, boolean canAutoDownload) {
 				System.out.println("newVersion = [" + newVersion + "], downloadUrl = [" + downloadUrl + "], canAutoDownload = [" + canAutoDownload + "]");
 
-				assertTrue(downloadUrl.startsWith("https://spigotmc.org/resources/1-8-1-9-1-10-nicknamer-integrated-api.5341/download"));
+				assertTrue(downloadUrl.startsWith("https://spigotmc.org/resources/nicknamer-integrated-api.5341/download"));
 				assertFalse(canAutoDownload);
 			}
 
