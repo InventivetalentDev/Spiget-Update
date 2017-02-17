@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/InventivetalentDev/SpigetUpdater.svg?branch=master)](https://travis-ci.org/InventivetalentDev/SpigetUpdater)
+[![GitHub release](https://img.shields.io/github/release/InventivetalentDev/SpigetUpdater.svg)](https://github.com/InventivetalentDev/SpigetUpdater)
 
 
 Spigot & Bungeecord updater API which uses [spiget.org](https://spiget.org) to check for new versions
