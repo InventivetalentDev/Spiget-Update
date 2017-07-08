@@ -62,6 +62,19 @@ public abstract class VersionComparator {
 	};
 
 	/**
+	 * Same as {@link VersionComparator#SEM_VER}, but supports version names with '-SNAPSHOT' prefixes
+	 */
+	public static final VersionComparator SEM_VER_SNAPSHOT = new VersionComparator() {
+		@Override
+		public boolean isNewer(String currentVersion, String checkVersion) {
+			currentVersion = currentVersion.replace("-SNAPSHOT", "");
+			checkVersion = checkVersion.replace("-SNAPSHOT", "");
+
+			return SEM_VER.isNewer(currentVersion, checkVersion);
+		}
+	};
+
+	/**
 	 * Called to check if a version is newer
 	 *
 	 * @param currentVersion Current version of the plugin
