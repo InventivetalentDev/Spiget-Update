@@ -6,5 +6,7 @@ public class ResourceVersion {
 	public String name;
 	public long   releaseDate;
 	public String url;
+	public UpdateVersion updateInfo;
+
 
 }

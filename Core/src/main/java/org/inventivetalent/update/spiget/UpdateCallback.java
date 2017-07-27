@@ -46,4 +46,10 @@ public interface UpdateCallback {
 	 */
 	void upToDate();
 
+	/**
+	 * Called when the updater fails at connecting to spiget and retrieving resource information
+	 * @param ex
+	 */
+	void failedCheck(Exception ex);
+
 }

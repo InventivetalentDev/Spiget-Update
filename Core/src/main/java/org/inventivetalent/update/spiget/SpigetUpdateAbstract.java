@@ -31,8 +31,10 @@ package org.inventivetalent.update.spiget;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.istack.internal.Nullable;
 import org.inventivetalent.update.spiget.comparator.VersionComparator;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -43,6 +45,8 @@ public abstract class SpigetUpdateAbstract {
 
 	public static final String RESOURCE_INFO    = "http://api.spiget.org/v2/resources/%s?ut=%s";
 	public static final String RESOURCE_VERSION = "http://api.spiget.org/v2/resources/%s/versions/latest?ut=%s";
+	public static final String UPDATE_INFO = "http://api.spiget.org/v2/resources/%s/updates/latest?ut=%s";
+	private final boolean canLog;
 
 	protected final int    resourceId;
 	protected final String currentVersion;
@@ -52,10 +56,15 @@ public abstract class SpigetUpdateAbstract {
 
 	protected ResourceInfo latestResourceInfo;
 
-	public SpigetUpdateAbstract(int resourceId, String currentVersion, Logger log) {
+	public SpigetUpdateAbstract(int resourceId, String currentVersion, Logger log,boolean canLog) {
 		this.resourceId = resourceId;
 		this.currentVersion = currentVersion;
 		this.log = log;
+		this.canLog=canLog;
+	}
+
+	public SpigetUpdateAbstract(int resourceId, String currentVersion, Logger log) {
+		this(resourceId,currentVersion,log,true);
 	}
 
 	public SpigetUpdateAbstract setUserAgent(String userAgent) {
@@ -87,26 +96,37 @@ public abstract class SpigetUpdateAbstract {
 			@Override
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(String.format(RESOURCE_INFO, resourceId, System.currentTimeMillis())).openConnection();
-					connection.setRequestProperty("User-Agent", getUserAgent());
-					JsonObject jsonObject = new JsonParser().parse(new InputStreamReader(connection.getInputStream())).getAsJsonObject();
+					HttpURLConnection connection=null;
+					Gson gson=new Gson();
+					JsonObject jsonObject = establishConnection(connection,new URL(String.format(RESOURCE_INFO, resourceId, System.currentTimeMillis())));
+
 					latestResourceInfo = new Gson().fromJson(jsonObject, ResourceInfo.class);
 
-					connection = (HttpURLConnection) new URL(String.format(RESOURCE_VERSION, resourceId, System.currentTimeMillis())).openConnection();
-					connection.setRequestProperty("User-Agent", getUserAgent());
-					jsonObject = new JsonParser().parse(new InputStreamReader(connection.getInputStream())).getAsJsonObject();
-					latestResourceInfo.latestVersion = new Gson().fromJson(jsonObject, ResourceVersion.class);
+					jsonObject = establishConnection(connection,new URL(String.format(RESOURCE_VERSION, resourceId, System.currentTimeMillis())));
+					latestResourceInfo.latestVersion = gson.fromJson(jsonObject, ResourceVersion.class);
 
+					//to get update info
+					jsonObject=establishConnection(connection,new URL(String.format(UPDATE_INFO,resourceId,System.currentTimeMillis())));
+					latestResourceInfo.latestVersion.updateInfo=gson.fromJson(jsonObject,UpdateVersion.class);
 					if (isVersionNewer(currentVersion, latestResourceInfo.latestVersion.name)) {
 						callback.updateAvailable(latestResourceInfo.latestVersion.name, "https://spigotmc.org/" + latestResourceInfo.file.url, !latestResourceInfo.external);
 					} else {
 						callback.upToDate();
 					}
 				} catch (Exception e) {
+					callback.failedCheck(e);
+					if(canLog)
 					log.log(Level.WARNING, "Failed to get resource info from spiget.org", e);
 				}
 			}
 		});
+	}
+	private JsonObject establishConnection(@Nullable HttpURLConnection connection, URL url) throws IOException {
+		connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestProperty("User-Agent", getUserAgent());
+		return new JsonParser().parse(new InputStreamReader(connection.getInputStream())).getAsJsonObject();
+
+
 	}
 
 }

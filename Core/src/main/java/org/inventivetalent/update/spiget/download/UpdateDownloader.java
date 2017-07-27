@@ -60,7 +60,7 @@ public class UpdateDownloader {
 		download(info, file);
 	}
 
-	public static void download(ResourceInfo info, File file, String userAgent) {
+	public static void download(ResourceInfo info, File file, String userAgent) throws RuntimeException{
 		if (info.external) { throw new IllegalArgumentException("Cannot download external resource #" + info.id); }
 		ReadableByteChannel channel;
 		try {

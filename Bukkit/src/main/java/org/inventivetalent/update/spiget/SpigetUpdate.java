@@ -42,15 +42,22 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SpigetUpdate extends SpigetUpdateAbstract {
 
 	protected final Plugin plugin;
+	private final boolean canLog;
 	protected DownloadFailReason failReason = DownloadFailReason.UNKNOWN;
 
 	public SpigetUpdate(Plugin plugin, int resourceId) {
+		this(plugin,resourceId,true);
+	}
+
+	public SpigetUpdate(Plugin plugin, int resourceId,boolean canLog) {
 		super(resourceId, plugin.getDescription().getVersion(), plugin.getLogger());
 		this.plugin = plugin;
+		this.canLog=canLog;
 		setUserAgent("SpigetResourceUpdater/Bukkit");
 	}
 
@@ -106,16 +113,19 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 			failReason = DownloadFailReason.EXTERNAL_DISALLOWED;
 			return false;
 		}
-
+		if(canLog)
 		log.info("[SpigetUpdate] Downloading update...");
 		dispatch(UpdateDownloader.downloadAsync(latestResourceInfo, updateFile, getUserAgent(), new DownloadCallback() {
 			@Override
 			public void finished() {
+
+				if(canLog)
 				log.info("[SpigetUpdate] Update saved as " + updateFile.getPath());
 			}
 
 			@Override
 			public void error(Exception exception) {
+				if(canLog)
 				log.log(Level.WARNING, "[SpigetUpdate] Could not download update", exception);
 			}
 		}));
