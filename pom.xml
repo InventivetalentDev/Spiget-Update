@@ -99,7 +99,20 @@
             <id>mcstats-repo</id>
             <url>http://repo.mcstats.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>AuraDevelopmentTeam</id>
+            <url>https://maven.jnc.world</url>
+        </repository>
     </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>dev.aura.lib.version</groupId>
+            <artifactId>VersionLib</artifactId>
+            <version>[1.0.0,2.0.0)</version>
+            <scope>shadow</scope>
+        </dependency>
+    </dependencies>
 
     <distributionManagement>
         <repository>

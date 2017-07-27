@@ -30,7 +30,6 @@ package org.inventivetalent.update.spiget;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
-import org.inventivetalent.update.spiget.comparator.VersionComparator;
 
 public class SpigetUpdate extends SpigetUpdateAbstract {
 
@@ -45,12 +44,6 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 	@Override
 	public SpigetUpdate setUserAgent(String userAgent) {
 		super.setUserAgent(userAgent);
-		return this;
-	}
-
-	@Override
-	public SpigetUpdate setVersionComparator(VersionComparator comparator) {
-		super.setVersionComparator(comparator);
 		return this;
 	}
 
