@@ -34,28 +34,28 @@ import org.inventivetalent.update.spiget.comparator.VersionComparator;
 
 public class SpigetUpdate extends SpigetUpdateAbstract {
 
-	protected final Plugin plugin;
+    protected final Plugin plugin;
 
-	public SpigetUpdate(Plugin plugin, int resourceId) {
-		super(resourceId, plugin.getDescription().getVersion(), plugin.getLogger());
-		this.plugin = plugin;
-		setUserAgent("SpigetResourceUpdater/Bungee");
-	}
+    public SpigetUpdate(Plugin plugin, int resourceId) {
+        super(resourceId, plugin.getDescription().getVersion(), plugin.getLogger());
+        this.plugin = plugin;
+        setUserAgent("SpigetResourceUpdater/Bungee");
+    }
 
-	@Override
-	public SpigetUpdate setUserAgent(String userAgent) {
-		super.setUserAgent(userAgent);
-		return this;
-	}
+    @Override
+    public SpigetUpdate setUserAgent(String userAgent) {
+        super.setUserAgent(userAgent);
+        return this;
+    }
 
-	@Override
-	public SpigetUpdate setVersionComparator(VersionComparator comparator) {
-		super.setVersionComparator(comparator);
-		return this;
-	}
+    @Override
+    public SpigetUpdate setVersionComparator(VersionComparator comparator) {
+        super.setVersionComparator(comparator);
+        return this;
+    }
 
-	@Override
-	protected void dispatch(Runnable runnable) {
-		ProxyServer.getInstance().getScheduler().runAsync(plugin, runnable);
-	}
+    @Override
+    protected void dispatch(Runnable runnable) {
+        ProxyServer.getInstance().getScheduler().runAsync(plugin, runnable);
+    }
 }

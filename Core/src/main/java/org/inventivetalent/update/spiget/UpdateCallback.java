@@ -30,27 +30,30 @@ package org.inventivetalent.update.spiget;
 
 public interface UpdateCallback {
 
-	/**
-	 * Called when a new version was found
-	 * <p>
-	 * Use {@link SpigetUpdateAbstract#getLatestResourceInfo()} to get all resource details
-	 *  @param newVersion      the new version's name
-	 * @param downloadUrl     URL to download the update
-	 * @param canAutoDownload whether this update can be downloaded automatically
-	 * @param updater
-	 */
-	void updateAvailable(String newVersion, String downloadUrl, boolean canAutoDownload, SpigetUpdateAbstract updater);
+    /**
+     * Called when a new version was found
+     * <p>
+     * Use {@link SpigetUpdateAbstract#getLatestResourceInfo()} to get all resource details
+     *
+     * @param newVersion      the new version's name
+     * @param downloadUrl     URL to download the update
+     * @param canAutoDownload whether this update can be downloaded automatically
+     * @param updater         the updater
+     */
+    void updateAvailable(String newVersion, String downloadUrl, boolean canAutoDownload, SpigetUpdateAbstract updater);
 
-	/**
-	 * Called when no update was found
-	 * @param spigetUpdateAbstract
-	 */
-	void upToDate(SpigetUpdateAbstract updater);
+    /**
+     * Called when no update was found
+     *
+     * @param updater the updater
+     */
+    void upToDate(SpigetUpdateAbstract updater);
 
-	/**
-	 * Called when the updater fails at connecting to spiget and retrieving resource information
-	 * @param ex
-	 */
-	void failedCheck(Exception ex,SpigetUpdateAbstract updater);
+    /**
+     * Called when the updater fails at connecting to spiget and retrieving resource information
+     *
+     * @param ex
+     */
+    void failedCheck(Exception ex, SpigetUpdateAbstract updater);
 
 }

@@ -7,6 +7,6 @@ package org.inventivetalent.update.spiget;
  */
 public class UpdateVersion {
     public String title;
-    public int id,likes;
+    public int id, likes;
     public long date;
 }

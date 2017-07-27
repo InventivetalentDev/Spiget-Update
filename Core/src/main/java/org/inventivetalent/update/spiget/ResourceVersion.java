@@ -2,11 +2,11 @@ package org.inventivetalent.update.spiget;
 
 public class ResourceVersion {
 
-	public int    id;
-	public String name;
-	public long   releaseDate;
-	public String url;
-	public UpdateVersion updateInfo;
+    public int id;
+    public String name;
+    public long releaseDate;
+    public String url;
+    public UpdateVersion updateInfo;
 
 
 }
