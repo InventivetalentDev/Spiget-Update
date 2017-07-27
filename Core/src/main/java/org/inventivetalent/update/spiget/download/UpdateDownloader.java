@@ -60,7 +60,7 @@ public class UpdateDownloader {
 		download(info, file);
 	}
 
-	public static void download(ResourceInfo info, File file, String userAgent) throws RuntimeException{
+	public static void download(ResourceInfo info, File file, String userAgent) throws RuntimeException, IOException {
 		if (info.external) { throw new IllegalArgumentException("Cannot download external resource #" + info.id); }
 		ReadableByteChannel channel;
 		try {
@@ -74,13 +74,17 @@ public class UpdateDownloader {
 		} catch (IOException e) {
 			throw new RuntimeException("Download failed", e);
 		}
+		FileOutputStream output = null;
 		try {
-			FileOutputStream output = new FileOutputStream(file);
+			output=new FileOutputStream(file);
 			output.getChannel().transferFrom(channel, 0, Long.MAX_VALUE);
-			output.flush();
-			output.close();
+
 		} catch (IOException e) {
 			throw new RuntimeException("Could not save file", e);
+		}finally {
+			if(output!=null){
+			output.flush();
+			output.close();}
 		}
 	}
 

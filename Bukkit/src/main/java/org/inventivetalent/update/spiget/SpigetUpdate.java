@@ -50,10 +50,21 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 	private final boolean canLog;
 	protected DownloadFailReason failReason = DownloadFailReason.UNKNOWN;
 
+    /**
+     * Start a new Spiget Updater
+     * @param plugin your plugin
+     * @param resourceId your resource id. This is found at the end of your resource url
+     */
 	public SpigetUpdate(Plugin plugin, int resourceId) {
 		this(plugin,resourceId,true);
 	}
 
+    /**
+     * Start a new Spiget Updater
+     * @param plugin your plugin
+     * @param resourceId your resource id. This is found at the end of your resource url
+     * @param canLog whether the updater should log progress in the console
+     */
 	public SpigetUpdate(Plugin plugin, int resourceId,boolean canLog) {
 		super(resourceId, plugin.getDescription().getVersion(), plugin.getLogger());
 		this.plugin = plugin;
