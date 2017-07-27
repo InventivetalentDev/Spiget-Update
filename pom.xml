@@ -70,6 +70,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.inventivetalent.spiget-update:**</include>
+                                    <include>dev.aura.lib.version:VersionLib</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
@@ -104,15 +105,6 @@
             <url>https://maven.jnc.world</url>
         </repository>
     </repositories>
-    
-    <dependencies>
-        <dependency>
-            <groupId>dev.aura.lib.version</groupId>
-            <artifactId>VersionLib</artifactId>
-            <version>[1.0.0,2.0.0)</version>
-            <scope>shadow</scope>
-        </dependency>
-    </dependencies>
 
     <distributionManagement>
         <repository>
