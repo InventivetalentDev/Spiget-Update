@@ -109,12 +109,12 @@ public abstract class SpigetUpdateAbstract {
 					jsonObject=establishConnection(connection,new URL(String.format(UPDATE_INFO,resourceId,System.currentTimeMillis())));
 					latestResourceInfo.latestVersion.updateInfo=gson.fromJson(jsonObject,UpdateVersion.class);
 					if (isVersionNewer(currentVersion, latestResourceInfo.latestVersion.name)) {
-						callback.updateAvailable(latestResourceInfo.latestVersion.name, "https://spigotmc.org/" + latestResourceInfo.file.url, !latestResourceInfo.external);
+						callback.updateAvailable(latestResourceInfo.latestVersion.name, "https://spigotmc.org/" + latestResourceInfo.file.url, !latestResourceInfo.external,SpigetUpdateAbstract.this);
 					} else {
-						callback.upToDate();
+						callback.upToDate(SpigetUpdateAbstract.this);
 					}
 				} catch (Exception e) {
-					callback.failedCheck(e);
+					callback.failedCheck(e,SpigetUpdateAbstract.this);
 					if(canLog)
 					log.log(Level.WARNING, "Failed to get resource info from spiget.org", e);
 				}
