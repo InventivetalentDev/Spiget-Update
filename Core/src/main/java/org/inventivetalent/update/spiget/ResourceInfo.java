@@ -30,10 +30,11 @@ package org.inventivetalent.update.spiget;
 
 public class ResourceInfo {
 
-	public int          id;
-	public boolean      external;
-	public ResourceFile file;
+    public int id;
+    public boolean external;
 
-	public ResourceVersion latestVersion;
+    public ResourceFile file;
+
+    public ResourceVersion latestVersion;
 
 }
