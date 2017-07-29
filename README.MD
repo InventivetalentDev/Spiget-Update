@@ -93,8 +93,8 @@ new SpigetUpdate(this, 12345)
 <dependencies>
      <dependency>
         <groupId>com.github.SimplyBallistic</groupId>
-        <artifactId>Spiget-Update</artifactId>
-        <version>1.0</version>
+        <artifactId>SpigetUpdater</artifactId>
+        <version>1.5</version>
     </dependency>
 </dependencies>
 ```
