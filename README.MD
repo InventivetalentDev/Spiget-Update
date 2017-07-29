@@ -4,6 +4,12 @@
 
 Spigot & Bungeecord updater API which uses [spiget.org](https://spiget.org) to check for new versions
 
+### Simply Ballistic's fork
+#### Useful features added such as: 
+- Get update info such as name and likes
+- disable logging with a boolean value 
+- optimisation 
+
 ## Usage
 
 ### Check for new versions
