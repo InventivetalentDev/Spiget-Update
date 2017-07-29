@@ -11,6 +11,7 @@ Spigot & Bungeecord updater API which uses [spiget.org](https://spiget.org) to c
 - optimisation 
 - Run code on fail checking for updates
 - disable updating by adding -DEV tag to version 
+- made the updater follow the builder approach (don't have to store the variable anywhere!)
 
 All changes are on Bukkit only!
 
@@ -21,18 +22,18 @@ You are welcome to use this fork! Remember to mention the respectful owners.
 ### Check for new versions
 
 ```Java
-SpigetUpdate updater = new SpigetUpdate(this, 12345);
+new SpigetUpdate(this, 12345)
 
 // This compares versions just by checking if they are equal
 // This means that older versions will also be treated as updates
-updater.setVersionComparator(VersionComparator.EQUAL);
+.setVersionComparator(VersionComparator.EQUAL)
 
 // This converts a semantic version to an integer and checks if the updated version is greater
-updater.setVersionComparator(VersionComparator.SEM_VER);
+.setVersionComparator(VersionComparator.SEM_VER)
 
-updater.checkForUpdate(new UpdateCallback() {
+.checkForUpdate(new UpdateCallback() {
 	@Override
-	public void updateAvailable(String newVersion, String downloadUrl, boolean hasDirectDownload) {
+	public void updateAvailable(String newVersion, String downloadUrl, boolean hasDirectDownload,SpigetUpdateAbstract updater) {
 		//// A new version is available
 		// newVersion - the latest version
 		// downloadUrl - URL to the download
@@ -40,9 +41,13 @@ updater.checkForUpdate(new UpdateCallback() {
 	}
 
 	@Override
-	public void upToDate() {
+	public void upToDate(SpigetUpdateAbstract updater) {
 		//// Plugin is up-to-date
 	}
+	@Override
+         public void failedCheck(Exception ex, SpigetUpdateAbstract updater) {
+	 // The updater failed to check for updates
+            }
 });
 ```
 
