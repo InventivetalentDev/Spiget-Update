@@ -32,10 +32,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.inventivetalent.spiget-update</groupId>
-    <artifactId>parent</artifactId>
+    <groupId>com.github.SimplyBallistic</groupId>
+    <artifactId>SpigetUpdater</artifactId>
     <packaging>pom</packaging>
-    <version>parent</version>
+    <version>1.5</version>
     <modules>
         <module>Bukkit</module>
         <module>Core</module>
@@ -43,7 +43,7 @@
     </modules>
 
     <properties>
-        <s-update.version>1.4.0</s-update.version>
+        <s-update.version>1.5</s-update.version>
     </properties>
 
     <build>

@@ -82,7 +82,7 @@ public abstract class SpigetUpdateAbstract {
     public ResourceInfo getLatestResourceInfo() {
         return latestResourceInfo;
     }
-    public abstract boolean downloadUpdate();
+    public boolean downloadUpdate(){return false;}
 
     protected abstract void dispatch(Runnable runnable);
 

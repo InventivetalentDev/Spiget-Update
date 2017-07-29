@@ -18,6 +18,7 @@ public class UpdateTest {
             protected void dispatch(Runnable runnable) {
                 runnable.run();
             }
+
         };
         updateCheck.checkForUpdate(new UpdateCallback() {
             @Override
