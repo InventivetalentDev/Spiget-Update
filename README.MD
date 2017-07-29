@@ -9,6 +9,12 @@ Spigot & Bungeecord updater API which uses [spiget.org](https://spiget.org) to c
 - Get update info such as name and likes
 - disable logging with a boolean value 
 - optimisation 
+- Run code on fail checking for updates
+- disable updating by adding -DEV tag to version 
+
+All changes are on Bukkit only!
+
+You are welcome to use this fork! Remember to mention the respectful owners. 
 
 ## Usage
 
