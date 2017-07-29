@@ -55,6 +55,11 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
     }
 
     @Override
+    public boolean downloadUpdate() {
+        return false;
+    }
+
+    @Override
     protected void dispatch(Runnable runnable) {
         ProxyServer.getInstance().getScheduler().runAsync(plugin, runnable);
     }
