@@ -48,7 +48,7 @@ public abstract class SpigetUpdateAbstract {
     protected final int resourceId;
     protected final String currentVersion;
     protected final Logger log;
-    private final boolean canLog;
+    protected final boolean canLog;
     protected String userAgent = "SpigetResourceUpdater";
     protected VersionComparator versionComparator = VersionComparator.EQUAL;
 
@@ -83,6 +83,7 @@ public abstract class SpigetUpdateAbstract {
         return latestResourceInfo;
     }
     public boolean downloadUpdate(){return false;}
+    public DownloadFailReason getFailReason(){return DownloadFailReason.UNKNOWN;}
 
     protected abstract void dispatch(Runnable runnable);
 
@@ -95,6 +96,9 @@ public abstract class SpigetUpdateAbstract {
             @Override
             public void run() {
                 try {
+                    if(currentVersion.contains("-DEV")){
+                            log.info("Plugin in DEV mode!");
+                        callback.upToDate(SpigetUpdateAbstract.this);}
                     Gson gson = new Gson();
                     JsonObject jsonObject = establishConnection(new URL(String.format(RESOURCE_INFO, resourceId, System.currentTimeMillis())));
 

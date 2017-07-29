@@ -20,3 +20,6 @@ hs_err_pid*
 .project
 *.iml
 
+Bukkit/target/
+Core/target/
+out/
