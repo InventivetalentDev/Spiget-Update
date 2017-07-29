@@ -35,7 +35,7 @@
     <groupId>com.github.SimplyBallistic</groupId>
     <artifactId>SpigetUpdater</artifactId>
     <packaging>pom</packaging>
-    <version>1.5</version>
+    <version>1.5.1</version>
     <modules>
         <module>Bukkit</module>
         <module>Core</module>
@@ -43,7 +43,7 @@
     </modules>
 
     <properties>
-        <s-update.version>1.5</s-update.version>
+        <s-update.version>1.5.1</s-update.version>
     </properties>
 
     <build>

@@ -98,7 +98,7 @@ public abstract class SpigetUpdateAbstract {
                 try {
                     if(currentVersion.contains("-DEV")){
                             log.info("Plugin in DEV mode!");
-                        callback.upToDate(SpigetUpdateAbstract.this);}
+                        callback.upToDate(SpigetUpdateAbstract.this);return;}
                     Gson gson = new Gson();
                     JsonObject jsonObject = establishConnection(new URL(String.format(RESOURCE_INFO, resourceId, System.currentTimeMillis())));
 
