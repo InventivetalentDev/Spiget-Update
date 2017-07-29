@@ -4,6 +4,18 @@
 
 Spigot & Bungeecord updater API which uses [spiget.org](https://spiget.org) to check for new versions
 
+### Simply Ballistic's fork
+#### Useful features added such as: 
+- Get update info such as name and likes
+- disable logging with a boolean value 
+- optimisation 
+- Run code on fail checking for updates
+- disable updating by adding -DEV tag to version 
+
+All changes are on Bukkit only!
+
+You are welcome to use this fork! Remember to mention the respectful owners. 
+
 ## Usage
 
 ### Check for new versions
@@ -37,16 +49,17 @@ updater.checkForUpdate(new UpdateCallback() {
 
 ### Download updates (Bukkit/Spigot)
 ```Java
-final SpigetUpdate updater = new SpigetUpdate(this, 12345);
-updater.checkForUpdate(new UpdateCallback() {
+new SpigetUpdate(this, 12345)
+.checkForUpdate(new UpdateCallback() {
 	@Override
-	public void updateAvailable(String newVersion, String downloadUrl, boolean hasDirectDownload) {
+	public void updateAvailable(String newVersion, String downloadUrl, boolean hasDirectDownload,SpigetUpdateAbstract updater) {
 		// First check if there is a direct download available
 		// (Either the resources is hosted on spigotmc.org, or Spiget has a cached version to download)
 		// external downloads won't work if they are disabled (by default) in spiget.properties
 		if (hasDirectDownload) {
 			if (updater.downloadUpdate()) {
 				// Update downloaded, will be loaded when the server restarts
+				getLogger.info("This plugin was updated!");
 			} else {
 				// Update failed
 				getLogger().warning("Update download failed, reason is " + updater.getFailReason());
@@ -55,24 +68,28 @@ updater.checkForUpdate(new UpdateCallback() {
 	}
 
 	@Override
-	public void upToDate() {
+	public void upToDate(SpigetUpdateAbstract updater) {
+	getLogger.info("This plugin is up to date!");
 	}
+	@Override
+         public void failedCheck(Exception ex, SpigetUpdateAbstract updater) {
+                getLogger.info("The updater failed! Is your internet working?");
+            }
 });
 ```
 
 ## Maven
 ```xml
-<repositories>
-    <repository>
-        <id>inventive-repo</id>
-        <url>https://repo.inventivetalent.org/content/groups/public/</url>
-    </repository>
+ <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
 </repositories>
 <dependencies>
-    <dependency>
-        <groupId>org.inventivetalent.spiget-update</groupId>
-        <artifactId>bukkit|bungee</artifactId>
-        <version>VERSION</version>
+     <dependency>
+        <groupId>com.github.SimplyBallistic</groupId>
+        <artifactId>Spiget-Update</artifactId>
+        <version>1.0</version>
     </dependency>
 </dependencies>
 ```
