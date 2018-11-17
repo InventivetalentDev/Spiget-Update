@@ -62,7 +62,7 @@ public abstract class VersionComparator {
 	};
 
 	/**
-	 * Same as {@link VersionComparator#SEM_VER}, but supports version names with '-SNAPSHOT' prefixes
+	 * Same as {@link VersionComparator#SEM_VER}, but supports version names with '-SNAPSHOT' suffixes
 	 */
 	public static final VersionComparator SEM_VER_SNAPSHOT = new VersionComparator() {
 		@Override
