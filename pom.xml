@@ -43,7 +43,7 @@
     </modules>
 
     <properties>
-        <s-update.version>1.4.1</s-update.version>
+        <s-update.version>1.4.2-SNAPSHOT</s-update.version>
     </properties>
 
     <build>
