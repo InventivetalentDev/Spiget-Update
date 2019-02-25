@@ -43,7 +43,7 @@
     </modules>
 
     <properties>
-        <s-update.version>1.4.0</s-update.version>
+        <s-update.version>1.4.2-SNAPSHOT</s-update.version>
     </properties>
 
     <build>
@@ -82,7 +82,7 @@
     <repositories>
         <repository>
             <id>inventive-repo</id>
-            <url>http://repo.inventivetalent.org/content/groups/public/</url>
+            <url>https://repo.inventivetalent.org/content/groups/public/</url>
         </repository>
         <repository>
             <id>md_5-repo</id>
@@ -97,10 +97,6 @@
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
-            <id>mcstats-repo</id>
-            <url>http://repo.mcstats.org/content/groups/public/</url>
-        </repository>
-        <repository>
             <id>AuraDevelopmentTeam</id>
             <url>https://maven.project-creative.de/repository/auradev-releases/</url>
         </repository>
@@ -109,11 +105,11 @@
     <distributionManagement>
         <repository>
             <id>sonatype-nexus-releases</id>
-            <url>http://repo.inventivetalent.org/content/repositories/releases/</url>
+            <url>https://repo.inventivetalent.org/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
-            <url>http://repo.inventivetalent.org/content/repositories/snapshots/</url>
+            <url>https://repo.inventivetalent.org/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
