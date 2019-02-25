@@ -73,6 +73,12 @@
                                     <include>dev.aura.lib.version:VersionLib</include>
                                 </includes>
                             </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>dev.aura.lib.version</pattern>
+                                    <shadedPattern>org.inventivetalent.update.spiget.shade.dev.aura.lib.version</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
