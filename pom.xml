@@ -102,7 +102,7 @@
         </repository>
         <repository>
             <id>AuraDevelopmentTeam</id>
-            <url>https://maven.jnc.world</url>
+            <url>https://maven.project-creative.de/repository/auradev-releases/</url>
         </repository>
     </repositories>
 
