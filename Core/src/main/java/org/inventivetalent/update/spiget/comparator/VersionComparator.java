@@ -26,39 +26,50 @@
  *  either expressed or implied, of anybody else.
  */
 
-package org.inventivetalent.update.spiget;
+package org.inventivetalent.update.spiget.comparator;
 
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.plugin.Plugin;
-import org.inventivetalent.update.spiget.comparator.VersionComparator;
-
-public class SpigetUpdate extends SpigetUpdateAbstract {
-
-	protected final Plugin plugin;
-
-	public SpigetUpdate(Plugin plugin, int resourceId) {
-		super(resourceId, plugin.getDescription().getVersion(), plugin.getLogger());
-		this.plugin = plugin;
-		setUserAgent("SpigetResourceUpdater/Bungee");
-	}
-
-	@Override
-	public SpigetUpdate setUserAgent(String userAgent) {
-		super.setUserAgent(userAgent);
-		return this;
-	}
+/**
+ * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
+ */
+@Deprecated
+public class VersionComparator {
 
 	/**
+	 * Compares versions by checking if the version strings are equal
+	 * 
 	 * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
 	 */
+    @Deprecated
+	public static final VersionComparator EQUAL = new VersionComparator();
+
+	/**
+	 * Compares versions by their Sematic Version (<code>Major.Minor.Patch</code>, <a href="http://semver.org/">semver.org</a>). Removes dots and compares the resulting Integer values
+	 * 
+	 * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
+	 */
+    @Deprecated
+	public static final VersionComparator SEM_VER = new VersionComparator();
+
+	/**
+	 * Same as {@link VersionComparator#SEM_VER}, but supports version names with '-SNAPSHOT' suffixes
+	 * 
+	 * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
+	 */
+    @Deprecated
+	public static final VersionComparator SEM_VER_SNAPSHOT = new VersionComparator();
+
+	/**
+	 * Called to check if a version is newer
+	 * 
+	 * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
+	 *
+	 * @param currentVersion Current version of the plugin
+	 * @param checkVersion   Version to check
+	 * @return <code>true</code> if the checked version is newer
+	 */
 	@Deprecated
-	@Override
-	public SpigetUpdate setVersionComparator(VersionComparator comparator) {
-		return this;
+	public boolean isNewer(String currentVersion, String checkVersion) {
+	    return false;
 	}
 
-	@Override
-	protected void dispatch(Runnable runnable) {
-		ProxyServer.getInstance().getScheduler().runAsync(plugin, runnable);
-	}
 }

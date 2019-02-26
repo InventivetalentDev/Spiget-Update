@@ -31,6 +31,7 @@ package org.inventivetalent.update.spiget;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.inventivetalent.update.spiget.comparator.VersionComparator;
 
 import dev.aura.lib.version.Version;
 
@@ -65,6 +66,14 @@ public abstract class SpigetUpdateAbstract {
 
 	public String getUserAgent() {
 		return userAgent;
+	}
+
+	/**
+	 * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
+	 */
+	@Deprecated
+	public SpigetUpdateAbstract setVersionComparator(VersionComparator comparator) {
+		return this;
 	}
 
 	public ResourceInfo getLatestResourceInfo() {

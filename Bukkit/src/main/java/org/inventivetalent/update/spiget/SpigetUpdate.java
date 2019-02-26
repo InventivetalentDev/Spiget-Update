@@ -31,6 +31,7 @@ package org.inventivetalent.update.spiget;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.inventivetalent.update.spiget.comparator.VersionComparator;
 import org.inventivetalent.update.spiget.download.DownloadCallback;
 import org.inventivetalent.update.spiget.download.UpdateDownloader;
 
@@ -56,6 +57,15 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 	@Override
 	public SpigetUpdate setUserAgent(String userAgent) {
 		super.setUserAgent(userAgent);
+		return this;
+	}
+
+	/**
+	 * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
+	 */
+	@Deprecated
+	@Override
+	public SpigetUpdate setVersionComparator(VersionComparator comparator) {
 		return this;
 	}
 
