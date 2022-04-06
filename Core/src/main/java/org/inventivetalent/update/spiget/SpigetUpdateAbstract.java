@@ -58,16 +58,18 @@ public abstract class SpigetUpdateAbstract {
 		this.log = log;
 	}
 
-	public void setUserAgent(String userAgent) {
+	public SpigetUpdateAbstract setUserAgent(String userAgent) {
 		this.userAgent = userAgent;
+		return this;
 	}
 
 	public String getUserAgent() {
 		return userAgent;
 	}
 
-	public void setVersionComparator(VersionComparator comparator) {
+	public SpigetUpdateAbstract setVersionComparator(VersionComparator comparator) {
 		this.versionComparator = comparator;
+		return this;
 	}
 
 	public ResourceInfo getLatestResourceInfo() {
