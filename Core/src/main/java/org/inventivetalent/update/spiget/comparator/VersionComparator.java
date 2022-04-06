@@ -28,6 +28,8 @@
 
 package org.inventivetalent.update.spiget.comparator;
 
+import java.util.Arrays;
+
 public abstract class VersionComparator {
 
 	/**
@@ -41,19 +43,33 @@ public abstract class VersionComparator {
 	};
 
 	/**
-	 * Compares versions by their Sematic Version (<code>Major.Minor.Patch</code>, <a href="http://semver.org/">semver.org</a>). Removes dots and compares the resulting Integer values
+	 * Compares versions by their Semantic Version (<code>Major.Minor.Patch</code>, <a href="http://semver.org/">semver.org</a>).
+	 * Parses major, minor and patch and goes down from major till patch to decide whether a version is newer.
+	 * Also supports longer variations like x.x.x.x or x.x. These cases will be handled properly.
 	 */
 	public static final VersionComparator SEM_VER = new VersionComparator() {
 		@Override
 		public boolean isNewer(String currentVersion, String checkVersion) {
-			currentVersion = currentVersion.replace(".", "");
-			checkVersion = checkVersion.replace(".", "");
-
 			try {
-				int current = Integer.parseInt(currentVersion);
-				int check = Integer.parseInt(checkVersion);
+				int[] currentVersionData = Arrays.stream(currentVersion.split("\\."))
+						.mapToInt(Integer::parseInt).toArray();
+				int[] checkVersionData = Arrays.stream(checkVersion.split("\\."))
+						.mapToInt(Integer::parseInt).toArray();
 
-				return check > current;
+				int i = 0;
+				for (int version : checkVersionData) {
+					if (i == currentVersionData.length) {
+						return true;
+					}
+
+					if (version > currentVersionData[i]) {
+						return true;
+					} else if (version < currentVersionData[i]) {
+						return false;
+					}
+
+					i++;
+				}
 			} catch (NumberFormatException e) {
 				System.err.println("[SpigetUpdate] Invalid SemVer versions specified [" + currentVersion + "] [" + checkVersion + "]");
 			}

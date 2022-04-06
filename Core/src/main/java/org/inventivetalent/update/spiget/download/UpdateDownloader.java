@@ -43,21 +43,14 @@ public class UpdateDownloader {
 	public static final String RESOURCE_DOWNLOAD = "http://api.spiget.org/v2/resources/%s/download";
 
 	public static Runnable downloadAsync(final ResourceInfo info, final File file, final String userAgent, final DownloadCallback callback) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				try {
-					download(info, file, userAgent);
-					callback.finished();
-				} catch (Exception e) {
-					callback.error(e);
-				}
+		return () -> {
+			try {
+				download(info, file, userAgent);
+				callback.finished();
+			} catch (Exception e) {
+				callback.error(e);
 			}
 		};
-	}
-
-	public static void download(ResourceInfo info, File file) {
-		download(info, file);
 	}
 
 	public static void download(ResourceInfo info, File file, String userAgent) {

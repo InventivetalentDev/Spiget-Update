@@ -100,7 +100,7 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 		final File updateFile = new File(updateFolder, pluginFile.getName());
 
 		Properties properties = getUpdaterProperties();
-		boolean allowExternalDownload = properties != null && properties.containsKey("externalDownloads") && Boolean.valueOf(properties.getProperty("externalDownloads"));
+		boolean allowExternalDownload = properties != null && properties.containsKey("externalDownloads") && Boolean.parseBoolean(properties.getProperty("externalDownloads"));
 
 		if (!allowExternalDownload && latestResourceInfo.external) {
 			failReason = DownloadFailReason.EXTERNAL_DISALLOWED;
@@ -172,7 +172,7 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 		NO_PLUGIN_FILE,
 		NO_UPDATE_FOLDER,
 		EXTERNAL_DISALLOWED,
-		UNKNOWN;
+		UNKNOWN
 	}
 
 }
