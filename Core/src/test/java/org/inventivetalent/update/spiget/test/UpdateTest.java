@@ -6,14 +6,13 @@ import org.junit.Test;
 
 import java.util.logging.Logger;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class UpdateTest {
 
 	@Test
 	public void updateTest() {
-		SpigetUpdateAbstract updateCheck = new SpigetUpdateAbstract(5341/*NickNamer*/, "1.0.0", Logger.getLogger("UpdateTest")) {
+		SpigetUpdateAbstract updateCheck = new SpigetUpdateAbstract(5341/* NickNamer */, "1.0.0", Logger.getLogger("UpdateTest")) {
 			@Override
 			protected void dispatch(Runnable runnable) {
 				runnable.run();
@@ -32,7 +31,7 @@ public class UpdateTest {
 			public void upToDate() {
 				System.out.println("up-to-date");
 
-				assertTrue("Resource is up-to-date, but should have an update", false);
+				fail("Resource is up-to-date, but should have an update");
 			}
 		});
 	}
