@@ -33,6 +33,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.inventivetalent.update.spiget.comparator.VersionComparator;
 
+import dev.aura.lib.version.Version;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -48,7 +50,6 @@ public abstract class SpigetUpdateAbstract {
 	protected final String currentVersion;
 	protected final Logger log;
 	protected String            userAgent         = "SpigetResourceUpdater";
-	protected VersionComparator versionComparator = VersionComparator.EQUAL;
 
 	protected ResourceInfo latestResourceInfo;
 
@@ -67,8 +68,11 @@ public abstract class SpigetUpdateAbstract {
 		return userAgent;
 	}
 
+	/**
+	 * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
+	 */
+	@Deprecated
 	public SpigetUpdateAbstract setVersionComparator(VersionComparator comparator) {
-		this.versionComparator = comparator;
 		return this;
 	}
 
@@ -79,7 +83,7 @@ public abstract class SpigetUpdateAbstract {
 	protected abstract void dispatch(Runnable runnable);
 
 	public boolean isVersionNewer(String oldVersion, String newVersion) {
-		return versionComparator.isNewer(oldVersion, newVersion);
+		return (new Version(oldVersion)).compareTo(new Version(newVersion)) < 0;
 	}
 
 	public void checkForUpdate(final UpdateCallback callback) {

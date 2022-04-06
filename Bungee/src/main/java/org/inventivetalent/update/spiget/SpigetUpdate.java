@@ -48,9 +48,12 @@ public class SpigetUpdate extends SpigetUpdateAbstract {
 		return this;
 	}
 
+	/**
+	 * @deprecated in favor of VersionLib, which doesn't require a comparision mode.
+	 */
+	@Deprecated
 	@Override
 	public SpigetUpdate setVersionComparator(VersionComparator comparator) {
-		super.setVersionComparator(comparator);
 		return this;
 	}
 

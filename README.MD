@@ -11,13 +11,6 @@ Spigot & Bungeecord updater API which uses [spiget.org](https://spiget.org) to c
 ```Java
 SpigetUpdate updater = new SpigetUpdate(this, 12345);
 
-// This compares versions just by checking if they are equal
-// This means that older versions will also be treated as updates
-updater.setVersionComparator(VersionComparator.EQUAL);
-
-// This converts a semantic version to an integer and checks if the updated version is greater
-updater.setVersionComparator(VersionComparator.SEM_VER);
-
 updater.checkForUpdate(new UpdateCallback() {
 	@Override
 	public void updateAvailable(String newVersion, String downloadUrl, boolean hasDirectDownload) {
