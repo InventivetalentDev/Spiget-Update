@@ -5,7 +5,7 @@
     <parent>
         <artifactId>parent</artifactId>
         <groupId>org.inventivetalent.spiget-update</groupId>
-        <version>parent</version>
+        <version>parent-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

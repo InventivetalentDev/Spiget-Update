@@ -7,7 +7,7 @@
     <groupId>org.inventivetalent.spiget-update</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>parent</version>
+    <version>parent-SNAPSHOT</version>
     <modules>
         <module>Bukkit</module>
         <module>Core</module>
