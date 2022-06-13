@@ -60,6 +60,7 @@ public class UpdateDownloader {
 			//https://stackoverflow.com/questions/921262/how-to-download-and-save-a-file-from-internet-using-java
 			HttpURLConnection connection = (HttpURLConnection) new URL(String.format(RESOURCE_DOWNLOAD, info.id)).openConnection();
 			connection.setRequestProperty("User-Agent", userAgent);
+			connection.setInstanceFollowRedirects(true);
 			if (connection.getResponseCode() != 200) {
 				throw new RuntimeException("Download returned status #" + connection.getResponseCode());
 			}
