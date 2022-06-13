@@ -16,7 +16,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <s-update.version>1.4.5-SNAPSHOT</s-update.version>
+        <s-update.version>1.4.6-SNAPSHOT</s-update.version>
     </properties>
 
     <build>
